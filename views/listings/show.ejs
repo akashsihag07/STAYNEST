@@ -1,0 +1,172 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="row mt-4">
+  <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+    <h3 class="mb-3"><%= listing.title %></h3>
+    
+    <div class="card listing-card">
+      <img src="<%=listing.image.url %>" class="card-img-top show-img" alt="<%= listing.title %>">
+      <div class="card-body">
+        <p class="card-text mb-2">
+          <strong>Owned by:</strong> <i class="text-primary-custom"><%=listing.owner.username%></i>
+        </p>
+        <p class="card-text mb-2"><%= listing.description %></p>
+        <p class="card-text mb-2">
+          <strong>Price:</strong> &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+        </p>
+        <p class="card-text mb-2">
+          <strong>Location:</strong> <%= listing.location %>
+        </p>
+        <p class="card-text mb-0">
+          <strong>Country:</strong> <%= listing.country %>
+        </p>
+        <% if(listing.category) { %>
+          <p class="card-text mt-2">
+            <span class="badge bg-secondary"><%= listing.category %></span>
+          </p>
+        <% } %>
+      </div>
+    </div>
+
+    <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+    <div class="btns mt-3">
+      <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger">
+        <i class="fa-solid fa-edit"></i> Edit Listing
+      </a>
+      <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE" style="margin: 0;">
+        <button class="btn btn-dark">
+          <i class="fa-solid fa-trash"></i> Delete Listing
+        </button>
+      </form>
+    </div>
+    <% } %>
+
+    <hr class="my-4">
+
+    <!-- Leave a Review Section -->
+    <div class="mb-4">
+      <% if(currUser) { %>
+      <h4 class="mb-3">Leave a Review</h4>
+      <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <fieldset class="starability-slot">
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+
+        <div class="mb-3">
+          <label for="comment" class="form-label">Comments</label>
+          <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required placeholder="Share your experience..."></textarea>
+          <div class="invalid-feedback">Please add some comments for review.</div>
+        </div>
+        <button class="btn btn-outline-dark">
+          <i class="fa-solid fa-paper-plane"></i> Submit Review
+        </button>
+      </form>
+      <% } else { %>
+      <div class="alert alert-info">
+        <i class="fa-solid fa-info-circle"></i> 
+        Please <a href="/login" class="alert-link">login</a> to leave a review.
+      </div>
+      <% } %>
+    </div>
+
+    <!-- All Reviews Section -->
+    <% if (listing.reviews.length > 0) { %>
+    <div class="mb-4">
+      <h4 class="mb-3">All Reviews (<%= listing.reviews.length %>)</h4>
+      <div class="row">
+        <% for(let review of listing.reviews) { %>
+        <div class="col-12 col-md-6 mb-3">
+          <div class="card review-card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fa-solid fa-user-circle"></i> @<%= review.author.username%>
+              </h5>
+              <p class="card-text"><%= review.comment %></p>
+              <p class="starability-result card-text" data-rating="<%=review.rating%>"></p>
+              <% if(currUser && currUser._id.equals(review.author._id)) { %>
+              <form class="mt-2" method="POST" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
+                <button class="btn btn-sm btn-outline-danger">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+              </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- Map Section -->
+    <div class="mt-4 mb-4">
+      <h4 class="mb-3">
+        <i class="fa-solid fa-location-dot"></i> Where you'll be
+      </h4>
+      <div id="map"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MapTiler SDK -->
+<link rel="stylesheet" href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" />
+<script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+
+<script>
+  // Initialize MapTiler
+  maptilersdk.config.apiKey = 'rj4PZfHJZlXYIRxiyaM4';
+  
+  const locationString = "<%= listing.location %>, <%= listing.country %>";
+  
+  // Geocode the address
+  fetch(`https://api.maptiler.com/geocoding/${encodeURIComponent(locationString)}.json?key=${maptilersdk.config.apiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.features && data.features.length > 0) {
+        const coordinates = data.features[0].center;
+        
+        // Initialize map
+        const map = new maptilersdk.Map({
+          container: 'map',
+          style: maptilersdk.MapStyle.STREETS,
+          center: coordinates,
+          zoom: 13
+        });
+        
+        // Add marker
+        new maptilersdk.Marker({ color: "#FF385C" })
+          .setLngLat(coordinates)
+          .setPopup(
+            new maptilersdk.Popup({ offset: 25 })
+              .setHTML(`<div style="padding: 10px;">
+                          <h6 style="margin: 0 0 5px 0;"><%= listing.title %></h6>
+                          <p style="margin: 0;"><%= listing.location %></p>
+                        </div>`)
+          )
+          .addTo(map);
+      } else {
+        document.getElementById('map').innerHTML = 
+          '<div class="alert alert-warning">Unable to locate this address on the map.</div>';
+      }
+    })
+    .catch(error => {
+      console.error('Error loading map:', error);
+      document.getElementById('map').innerHTML = 
+        '<div class="alert alert-danger">Failed to load map.</div>';
+    });
+</script>

@@ -1,0 +1,630 @@
+/* ============================================
+   RESPONSIVE STYLES FOR WANDERLUST
+   Mobile-First Responsive Design
+   ============================================ */
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  font-size: 16px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Container Adjustments */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* ============================================
+   NAVBAR RESPONSIVE STYLES
+   ============================================ */
+.navbar {
+  padding: 1rem;
+}
+
+.navbar-brand {
+  font-size: 1.25rem;
+}
+
+.navbar-toggler {
+  padding: 0.5rem;
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: 2px solid #fe424d;
+}
+
+/* Show brand text on larger screens */
+@media (min-width: 768px) {
+  .brand-text {
+    display: inline !important;
+  }
+}
+
+/* Mobile Menu */
+@media (max-width: 767px) {
+  .navbar {
+    height: auto;
+    min-height: auto;
+    padding: 0.75rem 1rem;
+  }
+  
+  .navbar-collapse {
+    background: white;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-nav {
+    gap: 0.25rem;
+  }
+  
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    background: #f8f9fa;
+  }
+  
+  .navbar-brand .fa-compass {
+    font-size: 1.75rem;
+  }
+  
+  .navbar-user {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   SEARCH BAR RESPONSIVE
+   ============================================ */
+.search-container {
+  padding: 1rem 0;
+}
+
+.search-form {
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+@media (max-width: 576px) {
+  .search-container {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .search-form {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .search-btn {
+    width: 100%;
+    padding: 0.65rem 1.5rem;
+  }
+  
+  .clear-btn {
+    width: 100%;
+    padding: 0.65rem 1.5rem;
+  }
+}
+
+/* ============================================
+   CATEGORY FILTERS RESPONSIVE
+   ============================================ */
+#filters {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding: 0.5rem 0;
+}
+
+#filters::-webkit-scrollbar {
+  height: 6px;
+}
+
+#filters::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.filter {
+  flex-shrink: 0;
+  min-width: 70px;
+  margin-inline: 0.5rem;
+}
+
+.tax-toggle {
+  flex-shrink: 0;
+  margin-left: 1rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  #filters {
+    justify-content: flex-start;
+    padding: 0.5rem;
+  }
+  
+  .filter {
+    min-width: 60px;
+    margin-inline: 0.25rem;
+  }
+  
+  .filter p {
+    font-size: 0.7rem;
+  }
+  
+  .filter .category-icon,
+  .filter i {
+    font-size: 1.25rem;
+  }
+  
+  .tax-toggle {
+    margin-left: 0.5rem;
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    height: auto;
+  }
+  
+  .tax-toggle label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .tax-toggle {
+    order: -1;
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+}
+
+/* ============================================
+   LISTING CARDS RESPONSIVE
+   ============================================ */
+.listing-card {
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.listing-card img {
+  object-fit: cover;
+  width: 100%;
+  height: 20rem;
+}
+
+.listing-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Grid Responsive Adjustments */
+@media (max-width: 1200px) {
+  .listing-card img {
+    height: 18rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .listing-card img {
+    height: 16rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .listing-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .listing-card img {
+    height: 14rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .listing-card img {
+    height: 12rem;
+  }
+  
+  .card-body {
+    padding: 0.75rem;
+  }
+}
+
+/* ============================================
+   FORMS RESPONSIVE (New, Edit, Login, Signup)
+   ============================================ */
+.form-container {
+  max-width: 100%;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .col-8.offset-2 {
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  .col-6.offset-3 {
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  .row.mt-3 {
+    margin-top: 1rem !important;
+  }
+  
+  .form-label {
+    font-size: 0.9rem;
+  }
+  
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-md-4,
+  .col-md-8 {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  h3, .heading {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================================
+   SHOW PAGE (LISTING DETAILS) RESPONSIVE
+   ============================================ */
+.show-img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+@media (max-width: 992px) {
+  .show-img {
+    max-height: 400px;
+  }
+  
+  .col-8.offset-2 {
+    width: 90%;
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .show-img {
+    max-height: 300px;
+    border-radius: 0.75rem;
+  }
+  
+  .col-8.offset-2 {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 15px;
+  }
+  
+  .show-card {
+    margin-bottom: 1rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .show-img {
+    max-height: 250px;
+    border-radius: 0.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Button Group on Show Page */
+.btns {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+  .btns {
+    flex-direction: column;
+  }
+  
+  .btns .btn {
+    width: 100%;
+  }
+  
+  .btns form {
+    width: 100%;
+  }
+}
+
+/* Reviews Section */
+.review-card {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+  .card.col-5 {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .review-card {
+    padding: 0.75rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================
+   BUTTONS RESPONSIVE
+   ============================================ */
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .add-btn,
+  .edit-btn {
+    width: 100%;
+  }
+}
+
+/* ============================================
+   FOOTER RESPONSIVE
+   ============================================ */
+.footer {
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .footer .row > div {
+    margin-bottom: 1rem;
+  }
+}
+
+/* ============================================
+   RESULTS INFO RESPONSIVE
+   ============================================ */
+.results-info {
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+  .results-info {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.85rem;
+    margin: 0.75rem 0;
+  }
+}
+
+/* ============================================
+   NO RESULTS PAGE
+   ============================================ */
+.no-results {
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 576px) {
+  .no-results {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .no-results h3 {
+    font-size: 1.25rem;
+  }
+  
+  .no-results i {
+    font-size: 3rem !important;
+  }
+}
+
+/* ============================================
+   FLASH MESSAGES RESPONSIVE
+   ============================================ */
+.alert {
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+@media (max-width: 576px) {
+  .alert {
+    margin: 0.75rem 0;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================
+   MAP RESPONSIVE
+   ============================================ */
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 1rem;
+}
+
+@media (max-width: 768px) {
+  #map {
+    height: 300px;
+    border-radius: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #map {
+    height: 250px;
+    border-radius: 0.5rem;
+  }
+  
+  .mt-4.mb-4 {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .mt-4.mb-4 h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* ============================================
+   IMAGE UPLOAD PREVIEW
+   ============================================ */
+.image-preview {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 576px) {
+  .image-preview {
+    max-height: 200px;
+  }
+}
+
+/* ============================================
+   LANDSCAPE ORIENTATION (Tablets)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .listing-card img {
+    height: 15rem;
+  }
+  
+  #filters {
+    padding: 0.75rem 1rem;
+  }
+  
+  .search-input {
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  .navbar,
+  .footer,
+  #filters,
+  .search-container,
+  .btn,
+  .tax-toggle {
+    display: none !important;
+  }
+  
+  .listing-card {
+    page-break-inside: avoid;
+  }
+}

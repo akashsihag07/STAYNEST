@@ -1,0 +1,74 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+  <div class="row mt-3">
+    <div class="col-8 offset-2">
+      <h3>Edit your Listing</h3>
+      <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input name="listing[title]" value="<%= listing.title %>" type="text" placeholder="Enter a catchy title"
+            class="form-control"  required/>
+            <div class="valid-feedback">Good!</div>  
+            <div class="invalid-feedback">Enter the title</div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+          <div class="valid-feedback">Good!</div>  
+          <div class="invalid-feedback">Enter Description</div>
+        </div>
+
+        <div class="mb-3">
+          Orignal Image Listing <br>
+          <img src="<%= originalImageUrl %>" height="200px" width="250px">
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload New Image</label>
+          <input name="image" type="file" class="form-control" />
+        </div>
+        
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" required/>
+            <div class="valid-feedback">Good!</div>  
+            <div class="invalid-feedback">Enter correct Amount</div>
+          </div>
+          <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control" required />
+            <div class="valid-feedback">Good!</div>  
+            <div class="invalid-feedback">Enter valid Country name</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control" required />
+          <div class="valid-feedback">Good!</div>  
+          <div class="invalid-feedback">Enter valid Location</div>
+        </div>
+
+        <!-- Category Selection -->
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select name="listing[category]" class="form-select" required>
+            <option value="">Select a category</option>
+            <option value="Trending" <%= listing.category === 'Trending' ? 'selected' : '' %>>🔥 Trending</option>
+            <option value="Rooms" <%= listing.category === 'Rooms' ? 'selected' : '' %>>🛏️ Rooms</option>
+            <option value="Iconic cities" <%= listing.category === 'Iconic cities' ? 'selected' : '' %>>🏛️ Iconic cities</option>
+            <option value="Mountains" <%= listing.category === 'Mountains' ? 'selected' : '' %>>⛰️ Mountains</option>
+            <option value="Castles" <%= listing.category === 'Castles' ? 'selected' : '' %>>🏰 Castles</option>
+            <option value="Amazing pools" <%= listing.category === 'Amazing pools' ? 'selected' : '' %>>🏊 Amazing pools</option>
+            <option value="Camping" <%= listing.category === 'Camping' ? 'selected' : '' %>>🏕️ Camping</option>
+            <option value="Farms" <%= listing.category === 'Farms' ? 'selected' : '' %>>🚜 Farms</option>
+            <option value="Arctic" <%= listing.category === 'Arctic' ? 'selected' : '' %>>❄️ Arctic</option>
+          </select>
+          <div class="valid-feedback">Good!</div>  
+          <div class="invalid-feedback">Please select a category</div>
+        </div>
+
+        <button class="btn btn-dark edit-btn mt-3">Edit</button>
+      </form>
+    </div>
+  </div>
